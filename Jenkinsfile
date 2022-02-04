@@ -16,10 +16,5 @@ pipeline {
                 sh 'docker push zabdev/evgen'
             }
         }
-        stage('delete local image') {
-            steps {
-                sh 'docker rmi zabdev/evgen:${BUILD_NUMBER}.0'
-            }
-        }
     }
 }
