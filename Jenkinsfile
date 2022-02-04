@@ -12,14 +12,5 @@ pipeline {
                 }
             }
         }
-        stage('push image'){
-            steps {
-            script { 
-                    docker.withRegistry( '', DOCKERHUB_CREDENTIALS ) { 
-                        dockerImage.push() 
-                    }
-                }                 
-              } 
-            }
         }
     }
