@@ -7,7 +7,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 sh 'docker build -t zabdev/evgen:${BUILD-NUMBER} .'
-                sh 'echo ${BUILD-NUMBER}'
+                sh 'echo ${env.BUILD_ID}'
             }
         }
         stage('push docker image'){
