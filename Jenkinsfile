@@ -23,7 +23,7 @@ pipeline {
         }
         stage ('deploy to cluster'){
             steps {
-                sh 'kubectl describe nodes'
+                sh 'kubectl get nodes'
             }
         }
     }
