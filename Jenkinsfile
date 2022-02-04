@@ -4,7 +4,6 @@ pipeline {
         DOCKERHUB_CREDENTIALS=credentials('docker-hub-cred')
         REGISTRY = "zabdev/evgen" 
     }
-    def app
     stages {
         stage('build docker image') {
             steps {
