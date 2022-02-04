@@ -2,15 +2,14 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS=credentials('docker-hub-cred')
-        REGISTRY = "zabdev/evgen" 
     }
     stages {
         stage('build docker image') {
             steps {
-                script { 
-                    dockerImage = docker.build REGISTRY + ":$BUILD_NUMBER" 
-                }
+                sh 'docker build -t zabdev/evgen .'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u zabdev'
+                sh 'docker push zabdev/evgen'
             }
         }
-        }
     }
+}
