@@ -21,7 +21,7 @@ pipeline {
                 sh 'docker rmi zabdev/evgen:${BUILD_NUMBER}.0'
             }
         }
-        stage (deploy to cluster){
+        stage ('deploy to cluster'){
             steps {
                 sh 'echo deploy'
             }
