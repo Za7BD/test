@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('build docker image') {
             steps {
-                sh 'docker build -t zabdev/evgen:${BUILD_NUMBER} .'
+                sh 'docker build -t zabdev/evgen:${BUILD_NUMBER}.0.'
                 sh 'echo ${BUILD_NUMBER}'
             }
         }
@@ -18,7 +18,7 @@ pipeline {
         }
         stage('delete local image') {
             steps {
-                sh 'docker rmi zabdev/evgen:${BUILD_NUMBER}'
+                sh 'docker rmi zabdev/evgen:${BUILD_NUMBER}.0
             }
         }
     }
