@@ -13,7 +13,12 @@ pipeline {
         stage('push docker image'){
             steps {
                 sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u zabdev --password-stdin'
-                sh 'docker push zabdev/evgen'
+                sh 'docker push zabdev/evgen:${BUILD_NUMBER}.0'
+            }
+        }
+        stage('delete local image') {
+            steps {
+                sh 'docker rmi zabdev/evgen:${BUILD_NUMBER}.0'
             }
         }
     }
