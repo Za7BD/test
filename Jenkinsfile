@@ -7,7 +7,7 @@ pipeline {
         stage('build docker image') {
             steps {
                 sh 'docker build -t zabdev/evgen .'
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u zabdev'
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u zabdev --password-stdin'
                 sh 'docker push zabdev/evgen'
             }
         }
