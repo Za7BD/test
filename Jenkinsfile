@@ -1,14 +1,20 @@
-pipeline {
+kpipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS=credentials('docker-hub-cred')
     }
+    def app
     stages {
         stage('build docker image') {
             steps {
-                sh 'docker build -t zabdev/evgen .'
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u zabdev'
-                sh 'docker push zabdev/evgen'
+                app = docker.build("zabdev/evgen")  
+            }
+        }
+        stage(push image){
+            steps {
+                docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-cred') {            
+                app.push("${env.BUILD_NUMBER}")                 
+              } 
             }
         }
     }
