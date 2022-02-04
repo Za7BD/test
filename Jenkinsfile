@@ -10,7 +10,7 @@ kpipeline {
                 app = docker.build("zabdev/evgen")  
             }
         }
-        stage(push image){
+        stage('push image'){
             steps {
                 docker.withRegistry('https://registry.hub.docker.com', 'docker-hub-cred') {            
                 app.push("${env.BUILD_NUMBER}")                 
