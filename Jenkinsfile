@@ -2,12 +2,13 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS=credentials('docker-hub-cred')
+        BUILDID=${env.BUILD_ID}
     }
     stages {
         stage('build docker image') {
             steps {
                 sh 'docker build -t zabdev/evgen:${BUILD-NUMBER} .'
-                sh 'echo '${env.BUILD_ID}
+                sh 'echo BUILDID'
             }
         }
         stage('push docker image'){
