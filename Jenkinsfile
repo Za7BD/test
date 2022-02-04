@@ -23,7 +23,7 @@ pipeline {
         }
         stage ('deploy to cluster'){
             steps {
-                sh 'echo apiVersion: apps/v1
+                sh 'echo "apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: evgen-deployment
@@ -43,7 +43,7 @@ spec:
       - name: evgen-app-cont
         image: zabdev/evgen:${BUILD_NUMBER}.0
         ports:
-        - containerPort: 80
+        - containerPort: 80"
  > deploy.yml'
             }
         }
