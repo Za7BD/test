@@ -2,13 +2,12 @@ pipeline {
     agent any
     environment {
         DOCKERHUB_CREDENTIALS=credentials('docker-hub-cred')
-        BUILDID=${env.BUILD_ID}
     }
     stages {
         stage('build docker image') {
             steps {
-                sh 'docker build -t zabdev/evgen:${BUILD-NUMBER} .'
-                sh 'echo BUILDID'
+                sh 'docker build -t zabdev/evgen:${BUILD_NUMBER} .'
+                sh 'echo ${BUILD_NUMBER}'
             }
         }
         stage('push docker image'){
@@ -19,7 +18,7 @@ pipeline {
         }
         stage('delete local image') {
             steps {
-                sh 'docker rmi zabdev/evgen:${BUILD-NUMBER}'
+                sh 'docker rmi zabdev/evgen:${BUILD_NUMBER}'
             }
         }
     }
