@@ -1,30 +1,32 @@
 pipeline {
-    agent any
-    environment {
-        DOCKERHUB_CREDENTIALS=credentials('docker-hub-cred')
+
+  environment {
+    dockerimagename = "zabdev/evgen:${env.BUILD_ID}"
+    dockerImage = ""
+  }
+
+  agent any
+
+  stages {
+
+    stage('Build image') {
+      steps{
+        script {
+          dockerImage = docker.build dockerimagename
+        }
+      }
     }
-    stages {
-        stage('build docker image') {
-            steps {
-                sh 'docker build -t zabdev/evgen:${BUILD_NUMBER}.0 .'
-                sh 'echo ${BUILD_NUMBER}'
-            }
+
+    stage('Pushing Image') {
+      environment {
+               registryCredential = 'docker-hub-cred'
+           }
+      steps{
+        script {
+          docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
+            dockerImage.push("${env.BUILD_ID}")
+          }
         }
-        stage('push docker image'){
-            steps {
-                sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u zabdev --password-stdin'
-                sh 'docker push zabdev/evgen:${BUILD_NUMBER}.0'
-            }
-        }
-        stage('delete local image') {
-            steps {
-                sh 'docker rmi zabdev/evgen:${BUILD_NUMBER}.0'
-            }
-        }
-        stage ('deploy to cluster'){
-            steps {
-                sh 'kubectl get nodes'
-            }
-        }
+      }
     }
-}
+  }
