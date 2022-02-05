@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    dockerimagename = "zabdev/evgen:${env.BUILD_ID}"
+    dockerimagename = "zabdev/evgen:${env.BUILD_ID}.0"
     dockerImage = ""
   }
 
@@ -24,7 +24,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("${env.BUILD_ID}")
+            dockerImage.push("${env.BUILD_ID}.0")
           }
         }
       }
