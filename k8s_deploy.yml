@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: evgen-deployment
+  name: nodeapp-deployment
   labels:
-    app: evgen-app
+    app: nodeapp
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
-      app: evgen-app
+      app: nodeapp
   template:
     metadata:
       labels:
-        app: evgen-app
+        app: nodeapp 
     spec:
       containers:
-      - name: evgen-app-cont
-        image: zabdev/evgen:4.0
+      - name: nodeserver
+        image: thetips4you/nodeapp:latest
         ports:
-        - containerPort: 80
+        - containerPort: 3000
           
