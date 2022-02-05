@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: evgen-app-cont
-        image: ${dockerimagename}
+        image: zabdev/evgen:4.0
         ports:
         - containerPort: 80
           
