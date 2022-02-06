@@ -29,6 +29,11 @@ pipeline {
         }
       }
     }
+    stage('remove local Image') {
+      steps{
+      echo 'docker rmi -f $dockerimagename'
+      }
+    }
     stage('Deploying App to Kubernetes') {
       steps {
         script {
