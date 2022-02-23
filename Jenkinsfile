@@ -1,3 +1,4 @@
+def myEnv="noname"
 pipeline {
 
   environment {
