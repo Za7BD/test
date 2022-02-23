@@ -12,16 +12,16 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          if (env.BRANCH_NAME == 'main') {
-              myEnv='production'
+          if (${env.BRANCH_NAME} == 'main') {
+            ${myEnv}='production'
               }
           else {
-              myEnv='staging'
+            ${myEnv}='staging'
                 }
           dockerImage = docker.build dockerimagename
+          echo '{$env.BRANCH_NAME}'
+          echo '{$myEnv}'
         }
-          echo '$env.BRANCH_NAME'
-          echo '$myEnv'
       }
     }
 
