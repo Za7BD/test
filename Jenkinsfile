@@ -20,6 +20,8 @@ pipeline {
                 }
           dockerImage = docker.build dockerimagename
         }
+          echo '$env.BRANCH_NAME'
+          echo '$myEnv'
       }
     }
 
