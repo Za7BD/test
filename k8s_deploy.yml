@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: evgen-deployment
+  name: evg-staging
   labels:
     app: evgen-app
+    env: staging
 spec:
   replicas: 3
   selector:
