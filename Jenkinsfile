@@ -5,14 +5,7 @@ pipeline {
     dockerimagename = "zabdev/evgen:${env.GIT_COMMIT}"
     dockerImage = ""
   }
-  script {
-              if (env.GIT_BRANCH == 'origin/main') {
-            myEnv='production'
-              }
-          else {
-            myEnv='staging'
-                }
-  }
+
   agent any
 
   stages {
@@ -49,6 +42,14 @@ pipeline {
         }
       }
     }
+  }
+  script {
+    if (env.GIT_BRANCH == 'origin/main') {
+            myEnv='production'
+              }
+          else {
+            myEnv='staging'
+                }
   }
 }
 
