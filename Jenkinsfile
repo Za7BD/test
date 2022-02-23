@@ -2,17 +2,9 @@ pipeline {
 
   environment {
     myEnv=""
-    script {
-     if (env.BRANCH_NAME == 'master') {
-       myEnv='production'
-      } else {
-       myEnv='staging'
-      }
-    }
     dockerimagename = "zabdev/evgen:${env.BUILD_ID}.0"
     dockerImage = ""
   }
-
   agent any
 
   stages {
@@ -20,6 +12,12 @@ pipeline {
     stage('Build image') {
       steps{
         script {
+          if (env.BRANCH_NAME == 'main') {
+              myEnv='production'
+              }
+          else {
+              myEnv='staging'
+                }
           dockerImage = docker.build dockerimagename
         }
       }
