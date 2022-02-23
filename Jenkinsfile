@@ -1,6 +1,14 @@
 pipeline {
 
   environment {
+    myEnv=""
+    script {
+     if (env.BRANCH_NAME == 'master') {
+       myEnv='production'
+      } else {
+       myEnv='staging'
+      }
+    }
     dockerimagename = "zabdev/evgen:${env.BUILD_ID}.0"
     dockerImage = ""
   }
