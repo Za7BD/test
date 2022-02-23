@@ -1,6 +1,7 @@
 pipeline {
 
   environment {
+    myEnv="non"
     dockerimagename = "zabdev/evgen:${env.GIT_COMMIT}"
     dockerImage = ""
   }
