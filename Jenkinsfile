@@ -1,7 +1,6 @@
 pipeline {
 
   environment {
-    myEnv="non"
     dockerimagename = "zabdev/evgen:${env.GIT_COMMIT}"
     dockerImage = ""
   }
@@ -36,6 +35,9 @@ pipeline {
       }
     }
     stage('Deploying App to Kubernetes') {
+      environment{
+        myEnv="non"
+      }
       steps {
         script {
             if (env.GIT_BRANCH == 'origin/main') {
