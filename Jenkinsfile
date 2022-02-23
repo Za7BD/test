@@ -2,7 +2,7 @@ pipeline {
 
   environment {
     myEnv="noname"
-    dockerimagename = "zabdev/evgen:${env.BUILD_ID}.0"
+    dockerimagename = "zabdev/evgen:${env.GIT_COMMIT}"
     dockerImage = ""
   }
   agent any
@@ -12,14 +12,14 @@ pipeline {
     stage('Build image') {
       steps{
         script {
-          if (env.BRANCH_NAME == 'main') {
+          if (env.GIT_BRANCH == 'origin/main') {
             myEnv='production'
               }
           else {
             myEnv='staging'
                 }
           dockerImage = docker.build dockerimagename
-          echo env.BRANCH_NAME
+          echo env.GIT_BRANCH
           echo myEnv
           sh 'printenv'
         }
@@ -33,7 +33,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("${env.BUILD_ID}.0")
+            dockerImage.push("${env.GIT_COMMIT}")
           }
         }
       }
