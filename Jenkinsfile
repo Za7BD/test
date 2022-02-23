@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    myEnv=""
+    myEnv="noname"
     dockerimagename = "zabdev/evgen:${env.BUILD_ID}.0"
     dockerImage = ""
   }
