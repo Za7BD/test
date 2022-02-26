@@ -24,7 +24,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            #dockerImage.push("${env.GIT_COMMIT}")
+            dockerImage.push("${env.GIT_COMMIT}")
           }
         }
       }
@@ -36,7 +36,7 @@ pipeline {
     }
     stage('Deploying App to Kubernetes') {
       environment{
-        myEnv="non"
+        env.myEnv="non"
       }
       steps {
         script {
@@ -46,7 +46,7 @@ pipeline {
           else {
             env.myEnv='staging'
                 }
-          #kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
+          kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
                }
         
         echo "${env.myEnv}"
