@@ -36,14 +36,16 @@ pipeline {
     }
     stage('Deploying App to Kubernetes') {
       steps {
-script {
-            if (env.GIT_BRANCH == 'origin/main') {
-             env.myEnv='production'
-              }
-          else {
-             env.myEnv='staging'
-                }
-               }
+        script {
+               if (env.GIT_BRANCH == 'origin/main') {
+                   env.myEnv='production'
+                  }
+               else {
+                   env.myEnv='staging'
+                  }
+  
+               kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
+       }
 
         echo "${env.myEnv}"
       }
