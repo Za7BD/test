@@ -37,7 +37,7 @@ pipeline {
     stage('Deploying App to Kubernetes') {
       steps {
         script {
-               if (env.GIT_BRANCH == 'origin/main') {
+               if (env.GIT_BRANCH == 'main') {
                    env.myEnv='production'
                   }
                else {
