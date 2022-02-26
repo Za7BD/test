@@ -1,7 +1,7 @@
 pipeline {
 
   environment {
-    dockerimagename = "zabdev/evgen:${env.BUILD_ID}.0"
+    dockerimagename = "zabdev/evgen:${env.GIT_COMMIT}"
     dockerImage = ""
   }
 
@@ -24,7 +24,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("${env.BUILD_ID}.0")
+            dockerImage.push("${env.GIT_COMMIT}")
           }
         }
       }
@@ -37,8 +37,17 @@ pipeline {
     stage('Deploying App to Kubernetes') {
       steps {
         script {
-          kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
-        }
+               if (env.GIT_BRANCH == 'origin/main') {
+                   env.myEnv='production'
+                  }
+               else {
+                   env.myEnv='staging'
+                  }
+  
+               kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
+       }
+
+        echo "${env.myEnv}"
       }
     }
   }
