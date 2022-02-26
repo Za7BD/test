@@ -45,10 +45,10 @@ pipeline {
                   }
   
                kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
+          sh 'printenv'
        }
 
         echo "${env.myEnv}"
-        echo "printenv"
       }
     }
   }
