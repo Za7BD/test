@@ -48,6 +48,7 @@ pipeline {
        }
 
         echo "${env.myEnv}"
+        echo "printenv"
       }
     }
   }
