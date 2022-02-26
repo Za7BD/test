@@ -46,9 +46,8 @@ pipeline {
           else {
             myEnv='staging'
                 }
-          echo myEnv
+          sh 'export myEnv2=great!'
           kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
-          echo myEnv
           sh 'printenv'
           
         }
