@@ -46,10 +46,9 @@ pipeline {
           else {
             env.myEnv='staging'
                 }
-          kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
-          sh 'printenv'
-          
         }
+        
+        echo "${env.myEnv}"
       }
     }
   }
