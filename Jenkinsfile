@@ -24,7 +24,7 @@ pipeline {
       steps{
         script {
           docker.withRegistry( 'https://registry.hub.docker.com', registryCredential ) {
-            dockerImage.push("${env.GIT_COMMIT}")
+            #dockerImage.push("${env.GIT_COMMIT}")
           }
         }
       }
@@ -41,12 +41,13 @@ pipeline {
       steps {
         script {
             if (env.GIT_BRANCH == 'origin/main') {
-            env.myEnv=production
+            env.myEnv='production'
               }
           else {
-            env.myEnv=staging
+            env.myEnv='staging'
                 }
-        }
+          #kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
+               }
         
         echo "${env.myEnv}"
       }
