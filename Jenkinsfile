@@ -38,14 +38,14 @@ pipeline {
       steps {
         script {
             if (env.GIT_BRANCH == 'origin/main') {
-            def myEnv='production'
+            def env.myEnv='production'
               }
           else {
-            def myEnv='staging'
+            def env.myEnv='staging'
                 }
                }
         
-        echo myEnv
+        echo "${env.myEnv}"
       }
     }
   }
