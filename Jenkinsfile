@@ -1,4 +1,3 @@
-def hert= "ttt"
 pipeline {
 
   environment {
@@ -42,11 +41,10 @@ pipeline {
       steps {
         script {
             if (env.GIT_BRANCH == 'origin/main') {
-            myEnv='production'
+            env.myEnv='production'
               }
           else {
-            myEnv='staging'
-            hert='hhh'
+            env.myEnv='staging'
                 }
           kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
           sh 'printenv'
