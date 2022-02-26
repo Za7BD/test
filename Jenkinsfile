@@ -1,3 +1,4 @@
+def hert= "ttt"
 pipeline {
 
   environment {
@@ -45,8 +46,8 @@ pipeline {
               }
           else {
             myEnv='staging'
+            hert='hhh'
                 }
-          sh 'export myEnv2=great!'
           kubernetesDeploy(configs: "k8s_deploy.yml", kubeconfigId: "kubernetes-id")
           sh 'printenv'
           
