@@ -45,7 +45,7 @@ pipeline {
                 }
                }
         
-        echo "${env.myEnv}"
+        echo myEnv
       }
     }
   }
